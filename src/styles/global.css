@@ -1,0 +1,104 @@
+
+/* 300 - Light */
+@font-face {
+  font-family: 'Sora';
+  src: url('/fonts/Sora-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 400 - Regular */
+@font-face {
+  font-family: 'Sora';
+  src: url('/fonts/Sora-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 600 - SemiBold */
+@font-face {
+  font-family: 'Sora';
+  src: url('/fonts/Sora-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 700 - Bold */
+@font-face {
+  font-family: 'Sora';
+  src: url('/fonts/Sora-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Puedes agregar los pesos 300 y 600 si los convertiste */
+
+/* 2. Variables Globales */
+:root {
+  --font-sora: 'Sora', system-ui, -apple-system, sans-serif;
+}
+
+/* 3. Reset y Aplicación */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* Aplicar aquí permite que todo lo herede correctamente */
+  font-family: var(--font-sora);
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5; /* Mejora la legibilidad y accesibilidad */
+}
+/* --- BOTÓN FLOTANTE DE WHATSAPP --- */
+.whatsapp-float-btn {
+  position: fixed;
+  bottom: 95px; /* Altura perfecta sobre el chat de HubSpot */
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Sombra idéntica a tus capturas */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  z-index: 999;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* Control del SVG de una sola pieza */
+.whatsapp-float-btn svg {
+  width: 100%;
+  height: 100%;
+  padding: 10px; /* Espaciado interno ideal para el logo */
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Efecto interactivo al pasar el mouse */
+.whatsapp-float-btn:hover {
+  transform: scale(1.08);
+  background-color: #20ba5a;
+}
+
+/* Optimización móvil */
+@media (max-width: 850px) {
+  .whatsapp-float-btn {
+    bottom: 90px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+  }
+}

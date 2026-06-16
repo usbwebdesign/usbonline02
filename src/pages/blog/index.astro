@@ -1,0 +1,121 @@
+---
+export const prerender = false; // <-- Esto asegura que Astro consulte a Supabase CADA vez que alguien visite la lista del blog
+
+import { createClient } from '@supabase/supabase-js';
+import MainLayout from '../../layouts/MainLayout.astro';
+import Footer from '../../components/Footer/Footer.tsx'; 
+import "./blog-lista.css"; 
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL, 
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+// Traemos los datos frescos siempre en tiempo de petición (Request time)
+const { data: noticiasDB } = await supabase
+  .from('Noticias')
+  .select('*')
+  .order('id', { ascending: false });
+
+const noticias = noticiasDB || [];
+const ultimaNoticia = noticias.length > 0 ? noticias[0] : null;
+---
+
+<MainLayout title="Blog | USBOnline" description="Mantente al día con las últimas noticias y artículos de USBOnline.">
+
+<header class="header">
+  <div class="banner-blog">
+    <img 
+      src="/img/bannerblog.webp" 
+      alt="Banner Blog USBOnline" 
+      class="img-fondo"
+    />
+    <div class="container">
+      <h1 class="text-blog">Blog USBOnline</h1>
+    </div>
+  </div>
+</header>
+
+    <main class="container">
+      {ultimaNoticia && (
+        <div class="cont-noticia-nueva">
+          <img class="img-noticia-nueva" src={ultimaNoticia.imagenportada} alt={ultimaNoticia.titulo}>
+          <div class="cont-info-noticia-nueva">
+            <div class="btn-nuevo">Lo más reciente</div>
+            <h2 class="titulo-Noticia_nueva">{ultimaNoticia.titulo}</h2>
+            <div class="meta-destacada">
+                <span class="btn-especialidad-new">{ultimaNoticia.categoria || 'General'}</span>
+                <span class="meta-text-date-new">{ultimaNoticia.fecha}</span>
+                <span class="meta-separator">•</span>
+                <span class="meta-text-time-new">{ultimaNoticia.tiempo_lectura || '5'} min de lectura</span>
+            </div>
+            <p class="desc-noticia-nueva">{ultimaNoticia.descripcion}</p>
+            <a href={`/blog/${ultimaNoticia.id}`} class="btn-leer-noticia-new">Leer artículo</a>
+          </div>
+        </div>
+      )}
+
+      <!-- Contenedores para JS dinámico -->
+      <div class="cont-noticias" id="contenedor-noticias"></div>
+      <div class="paginacion" id="paginacion"></div>
+    </main>
+
+    <Footer client:load />
+
+    <!-- Tu script de paginación del lado del cliente se mantiene 100% INTACTO -->
+    <script is:inline define:vars={{ noticias }}>
+      const contenedor = document.getElementById("contenedor-noticias");
+      const paginacionContenedor = document.getElementById("paginacion");
+      const noticiasPorPagina = 3;
+      let paginaActual = 1;
+
+      function mostrarNoticias() {
+        if (!noticias || noticias.length === 0) return;
+        contenedor.innerHTML = "";
+        
+        const listaRestante = noticias.slice(1);
+        const inicio = (paginaActual - 1) * noticiasPorPagina;
+        const visibles = listaRestante.slice(inicio, inicio + noticiasPorPagina);
+
+        visibles.forEach(n => {
+          contenedor.insertAdjacentHTML('beforeend', `
+            <a href="/blog/${n.id}" class="enlace-noticia">
+              <article class="noticia">
+                <img src="${n.imagenportada}" alt="${n.titulo}">
+                
+                <div class="noticia-meta">
+                  <span class="btn-especialidad">${n.categoria || 'General'}</span>
+                  <span class="meta-text-date">${n.fecha || ''}</span>
+                  <span class="meta-separator">•</span>
+                  <span class="meta-text-time">${n.tiempo_lectura || '5'} min de lectura</span>
+                </div>
+
+                <h3 class="titulo-Noticia_nueva">${n.titulo}</h3>
+                <p class="desc-noticia-nueva">${n.descripcion}</p>
+              </article>
+            </a>`);
+        });
+        renderizarBotones(listaRestante.length);
+      }
+
+      function renderizarBotones(total) {
+        paginacionContenedor.innerHTML = "";
+        const pags = Math.ceil(total / noticiasPorPagina);
+        if (pags <= 1) return;
+        for (let i = 1; i <= pags; i++) {
+          const b = document.createElement("button");
+          b.textContent = i;
+          b.className = (i === paginaActual) ? "btn-pag activo" : "btn-pag";
+          b.onclick = () => { 
+            paginaActual = i; 
+            mostrarNoticias(); 
+            const offset = contenedor.getBoundingClientRect().top + window.scrollY - 100;
+            window.scrollTo({top: offset, behavior:'smooth'}); 
+          };
+          paginacionContenedor.appendChild(b);
+        }
+      }
+      mostrarNoticias();
+    </script>
+
+</MainLayout>

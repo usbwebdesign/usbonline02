@@ -1,0 +1,61 @@
+---
+export const prerender = false;
+
+import { createClient } from "@supabase/supabase-js";
+import MainLayout from '../../layouts/MainLayout.astro';
+import Footer from '../../components/Footer/Footer.tsx'; 
+import "./noticia-detalle.css"; 
+
+const { id } = Astro.params;
+const supabase = createClient(import.meta.env.PUBLIC_SUPABASE_URL, import.meta.env.PUBLIC_SUPABASE_ANON_KEY);
+const { data: noticia } = await supabase.from("Noticias").select("*").eq("id", id).single();
+
+if (!noticia) return Astro.redirect('/404');
+
+// --- SEO Y METADATOS ESENCIALES ---
+const seoTitle = `${noticia.titulo} | Blog USBOnline`;
+const seoDesc = noticia.descripcion?.substring(0, 160);
+---
+
+<MainLayout title={seoTitle} description={seoDesc}>
+
+    <header class="BannerNoticia" style={`background-image: url('${noticia.img_banner}')`}>
+        <p>{noticia.subtitulo}</p>
+    </header>
+
+    <main class="contenido">
+      <article>
+        <header class="cont-imagen-titulo">
+          <img src={noticia.imagenportada} alt={`Portada: ${noticia.titulo}`} />
+          <h1>{noticia.titulo}</h1>
+        </header>
+
+        <section class="meta-info">
+          <h2 class="subtema">{noticia.descripcion}</h2>
+          <p class="Autor">
+            Publicado por <strong>USBOnline</strong> el 
+            <time datetime={noticia.fecha}>{noticia.fecha}</time>
+          </p>
+        </section>
+
+        <div class="parrafos">
+          <p>{noticia.parrafo1}</p>
+          <p>{noticia.parrafo2}</p>
+          <p>{noticia.parrafo3}</p>
+        </div>
+
+        {noticia.imagen_contenido && (
+          <figure class="cont-imagen-adicional">
+            <img src={noticia.imagen_contenido} class="imagen-contenido" alt="Contenido visual de apoyo" />
+          </figure>
+        )}
+        
+        <nav aria-label="Volver al listado">
+          <a href="/blog" class="btn-volver">Volver al blog</a>
+        </nav>
+      </article>
+    </main>
+
+    <Footer client:load />
+
+</MainLayout>

@@ -1,0 +1,285 @@
+.footer {
+  background-color: #111111;
+  color: white;
+  padding: 100px 5% 40px;
+  font-family: 'Sora', sans-serif;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 80px;
+}
+
+/* BRANDING */
+.brandSection {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.logos {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+}
+.logos a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.logos a:hover {
+  opacity: 0.8; /* Un pequeño efecto visual al pasar el mouse */
+}
+
+.logoUsb {
+  height: 50px; /* Ajusta según el archivo original */
+  width: auto;
+}
+
+.logoOnline {
+  height: 50px;
+  width: auto;
+}
+
+.mottoContainer {
+  position: relative;
+}
+
+.motto {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0;
+  color: #e0e0e0;
+}
+
+.underline {
+  width: 280px;
+  height: 4px;
+  background-color: #2b44ff;
+  margin-top: 15px;
+}
+
+/* NAVEGACIÓN */
+.nav {
+  text-align: center;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.navList a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navList a:hover {
+  color: #2b44ff;
+}
+
+/* BOTTOM SECTION */
+.bottomSection {
+  /* border-top: 1px solid rgba(255, 255, 255, 0.05); */
+  padding-top: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.privacy {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.copyright {
+  color: white;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+
+    .container{
+        margin-top: 0;
+        padding-top: 50px;
+    }
+    .footer {
+  background-color: #111111;
+  color: white;
+  padding: 50px 5% 40px;
+  font-family: 'Sora', sans-serif;
+}
+  .topSection {
+    flex-direction: column;
+    gap: 60px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .logos {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .nav {
+    text-align: center;
+  }
+
+  .motto {
+    font-size: 42px;
+  }
+
+  .underline {
+    margin: 15px auto 0;
+  }
+}
+/* Redes Sociales */
+.socials {
+  display: flex;
+  gap: 1.5rem; /* Espacio entre iconos */
+  margin-top: 3rem;
+  align-items: center;
+}
+
+.socials a {
+  color: rgba(255, 255, 255, 0.7); /* Blanco con transparencia por defecto */
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.socials a:hover {
+  color: #ffffff; /* Blanco sólido al hacer hover */
+}
+
+/* Tamaño de los iconos */
+.socials svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* El underline se queda igual, solo aseguramos su margen */
+.underline {
+  margin: 0.8rem 0;
+}
+
+@media (max-width: 900px) {
+  .socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+}
+
+.bottomSection {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+.locationRow {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; /* Para que en móviles se apilen si no caben */
+  gap: 24px;       /* Espacio entre dirección y teléfono */
+  align-items: center;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: opacity 0.2s ease;
+}
+.location:hover {
+  color: #eaeaea;
+}
+
+.legalRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Espacio entre elementos */
+  flex-wrap: wrap; /* Para que en móvil se bajen si no caben */
+}
+
+.separator {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+}
+
+.privacy {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.3s ease;
+}
+
+.privacy:hover {
+  color: white;
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Ajuste para móviles */
+@media (max-width: 600px) {
+  .legalRow {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .locationRow {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; /* Para que en móviles se apilen si no caben */
+}
+.location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: opacity 0.2s ease;
+}
+  .separator {
+    display: none; /* Quitamos la barra en móvil para que luzca mejor */
+  }
+}

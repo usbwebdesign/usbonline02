@@ -1,0 +1,85 @@
+---
+import Layout from '../layouts/MainLayout.astro';
+import Hero from '../components/Hero/Hero'; 
+import Oferta from '../components/Oferta/Oferta'; 
+import Grid from '../components/Grid/Grid'; 
+import Banner from '../components/BannerCTA/BannerCTA'; 
+import ValidationGrid from '../components/ValidationGrid/ValidationGrid'; 
+import Testimonials from '../components/Testimonials/Testimonials';
+import ReviewCards from '../components/ReviewCards/ReviewCards';
+import VoicesVideo from '../components/VoicesVideo/VoicesVideo';
+import Footer from '../components/Footer/Footer';
+
+// --- CONEXIÓN A SUPABASE ---
+import { supabase } from '../lib/supabase';
+
+const { data: programs, error } = await supabase
+  .from('programs')
+  .select('*');
+
+if (error) {
+  console.error("❌ Error de Supabase:", error.message);
+} else {
+  console.log("✅ Programas cargados correctamente:", programs?.length);
+}
+---
+
+<Layout 
+  title="USB Online | Estudiar así sí encaja" 
+  description="Explora nuestra oferta académica 100% en línea. Carreras y especialidades diseñadas para profesionales que buscan flexibilidad y excelencia académica."
+>
+  <!-- Todo el contenido DEBE vivir dentro de las etiquetas de Layout -->
+  
+  <div id="inicio" class="hero-container">
+    <Hero client:load />
+  </div>
+
+  <section id="oferta" class="content-section">
+    <Oferta initialPrograms={programs || []} client:load />
+  </section>
+
+  <section class="content-section">
+    <ValidationGrid client:load />
+  </section>
+
+  <section class="content-section">
+    <Banner client:load />
+  </section>
+
+  <section id="como-funciona" class="content-section">
+    <Grid client:load />
+  </section>
+
+  <section id="experiencias" class="content-section">
+    <Testimonials client:load />
+    <ReviewCards client:load />
+  </section>
+
+  <section id="innovacion" class="content-section">
+    <VoicesVideo client:load />
+  </section>
+
+  <section class="content-section">
+    <Footer client:load />
+  </section>
+
+</Layout> <!-- Un solo cierre limpio al final -->
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  section[id] {
+    scroll-margin-top: 100px;
+  }
+
+  .content-section {
+    position: relative;
+    width: 100%;
+  }
+
+  .hero-container {
+    width: 100%;
+  }
+</style>

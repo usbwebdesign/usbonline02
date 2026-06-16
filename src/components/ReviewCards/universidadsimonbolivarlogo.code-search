@@ -1,0 +1,10 @@
+# Query: universidadsimonbolivarlogo
+# Flags: CaseSensitive
+# ContextLines: 1
+
+1 resultado - 1 archivo
+
+src/components/Footer/Footer.tsx:
+  15                  <img 
+  16:                   src="/img/universidadsimonbolivarlogo.webp" 
+  17                    alt="Universidad Simón Bolívar" 

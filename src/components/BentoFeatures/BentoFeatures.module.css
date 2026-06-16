@@ -1,0 +1,50 @@
+.section {
+  padding: 80px 20px;
+  background-color: #fcfcfc;
+}
+
+.grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  /* Definimos 2 columnas principales */
+  grid-template-columns: 1.5fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 24px;
+}
+
+.item {
+  border-radius: 32px; /* El redondeado de tus capturas */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.imgCol img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.darkTextCol {
+  background-color: #1a1a1a; /* El negro mate de la imagen */
+  color: white;
+  padding: 40px;
+}
+
+.darkTextCol h3 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  font-weight: 800;
+}
+
+.darkTextCol p {
+  color: #ccc;
+  line-height: 1.6;
+}
+
+/* Para el diseño cruzado de la captura */
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+}

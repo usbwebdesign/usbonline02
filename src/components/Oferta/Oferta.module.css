@@ -1,0 +1,224 @@
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 60px 5%;
+  background-color: #ffffff;
+  font-family: 'Sora', sans-serif;
+  display: flex;
+  flex-direction: column;
+  /* CAMBIO: De center a flex-start */
+  align-items: flex-start; 
+}
+
+.mainTitle {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  /* CAMBIO: Título a la izquierda */
+  text-align: center; 
+  margin: 100px 0;
+  color: #000;
+  letter-spacing: -1px;
+  width: 100%;
+}
+
+/* ==========================================
+   BARRA DE FILTROS (ESTILO PILL EXACTO)
+   ========================================== */
+.filterBar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  background-color: #000000;
+  padding: 6px;
+  border-radius: 100px;
+  gap: 8px;
+  /* CAMBIO: Quitamos el '0 auto' que la centraba */
+  margin: 0 0 50px 0; 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: fit-content;
+  /* IMPORTANTE: Evita que el scale en móvil mueva la barra del origen */
+  transform-origin: left; 
+}
+
+.filterBtn {
+  padding: 12px 24px;
+  border-radius: 100px;
+  border: none;
+  font-size: 15px;
+  font-weight: 700; /* Negrita idéntica a la captura */
+  cursor: pointer;
+    font-family: 'Sora', sans-serif;
+  white-space: nowrap; /* Evita que el texto salte de línea */
+  transition: all 0.2s ease;
+}
+
+/* Estado Activo (Azul USB vibrante) */
+.filterBtn.active {
+  background-color: #2b44ff;
+  color: #ffffff;
+}
+
+/* Estado Inactivo (Gris suave de la captura) */
+.filterBtn:not(.active) {
+  background-color: #ececec;
+  color: #000000;
+}
+
+.filterBtn:not(.active):hover {
+  background-color: #ffffff;
+}
+
+/* ==========================================
+   GRID DE TARJETAS (COMPACTO -20%)
+   ========================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+  align-items: stretch;
+}
+
+/* Busca o añade estas reglas */
+
+.card {
+  background-color: #121212;
+  border-radius: 32px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  height: 100%;
+  padding: 0 !important; /* IMPORTANTE: El link debe tocar los bordes */
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;       /* Esto hace que el link se comporte como un contenedor */
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 250px; /* Reducido para mejor UX */
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.1);
+}
+
+.content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* BADGES */
+.badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.categoryBadge {
+  background-color: #2b44ff;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.durationBadge {
+  background-color: rgba(255, 255, 255, 0.15); /* Estilo dark mode */
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* TEXTOS */
+.cardTitle {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+  min-height: 52px;
+}
+
+.cardDesc {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  padding-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==========================================
+   MANTENER TODO IGUAL EN MÓVIL (NO SCROLL)
+   ========================================== */
+@media (max-width: 425px) {
+  .filterBar {
+    /* Mantiene el escalado pero pegado a la izquierda */
+    transform: scale(0.95); 
+    transform-origin: left; 
+  }
+
+  .mainTitle {
+  font-size: clamp(42px, 5vw, 56px);
+  font-weight: 800;
+  text-align: center; 
+  margin: 40px 0;
+  color: #000;
+  letter-spacing: -1px;
+  width: 100%;
+}
+
+
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 400px; /* Evita tarjetas gigantes */
+  }
+}
+
+@media (max-width: 480px) {
+  .filterBar {
+    transform: scale(0.75); /* Escala más agresiva para celulares muy pequeños */
+    margin-top: -10px;
+  }
+  
+  .filterBtn {
+    padding: 10px 16px; /* Ajuste fino del espacio interno */
+  }
+}

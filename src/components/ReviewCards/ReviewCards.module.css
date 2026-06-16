@@ -1,0 +1,110 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 5%;
+  background-color: transparent;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background-color: #121212; /* Fondo oscuro consistente con el diseño */
+  border-radius: 32px; /* Radio de borde armonizado con el Grid de Validación */
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(43, 68, 255, 0.3);
+}
+
+.quoteMark {
+  font-family: 'Georgia', serif; /* Serif para una forma de comilla clásica y legible */
+  font-size: 120px;
+  line-height: 1;
+  color: #e3e3e3; /* Azul de marca USBOnline */
+  height: 50px; /* Recorte de altura para que el texto no quede muy lejos */
+  display: block;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+.textContent {
+  margin: 0;
+  padding: 0;
+  margin-bottom: auto; /* Empuja el footer siempre al final */
+}
+
+.text {
+  color: white;
+  font-family: 'Sora', sans-serif;
+  font-size: 22px; /* Tamaño impactante para lectura rápida */
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 3rem;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author {
+  color: white;
+  font-family: 'Sora', sans-serif;
+  font-style: normal;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.role {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  margin: 4px 0 0 0;
+  line-height: 1.3;
+}
+
+/* Responsividad */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    padding: 2.5rem 2rem;
+  }
+
+  .text {
+    font-size: 19px;
+  }
+}

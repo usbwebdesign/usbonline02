@@ -1,0 +1,201 @@
+---
+import { createClient } from "@supabase/supabase-js";
+import MainLayout from '../../layouts/MainLayout.astro';
+import Footer from '../../components/Footer/Footer.tsx'; 
+import './oferta-detalle.css';
+
+const { id } = Astro.params;
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+// Buscamos los datos actualizados de la oferta académica en tiempo real
+const { data: oferta } = await supabase
+  .from("Ofertas")
+  .select("*")
+  .eq("id", id)
+  .single();
+
+if (!oferta) return Astro.redirect('/404');
+
+// SEO Dinámico
+const seoDescription = `Estudia la ${oferta.titulo} en USB Online. ${oferta.objetivo?.substring(0, 150)}...`;
+---
+
+<MainLayout title={`${oferta.titulo} | USB Online`} description={seoDescription}>
+
+    <header class="od-hero-header" style={`background-image: url('${oferta.imagen_hero}')`}>
+        <div class="od-hero-overlay"></div>
+        <div class="od-hero-container">
+            <span class="od-tag-specialty">{oferta.categoria}</span>
+            <h1 class="od-main-title">{oferta.titulo}</h1>
+        </div>
+    </header>
+
+    <div class="od-info-bar">
+        <div class="od-info-card">
+            <svg class="od-info-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="od-info-content">
+                <span class="od-info-label">Inicio</span>
+                <span class="od-info-value">{oferta.fecha_inicio}</span>
+            </div>
+        </div>
+        <div class="od-info-card">
+            <svg class="od-info-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+            </svg>
+            <div class="od-info-content">
+                <span class="od-info-label">Duración</span>
+                <span class="od-info-value">{oferta.duracion}</span>
+            </div>
+        </div>
+        <div class="od-info-card">
+            <svg class="od-info-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8M12 17v4"/>
+            </svg>
+            <div class="od-info-content">
+                <span class="od-info-label">Modalidad</span>
+                <span class="od-info-value">{oferta.modalidad}</span>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="od-section-objective">
+            <div class="od-obj-text">
+                <h2>Objetivo</h2>
+                <p>{oferta.objetivo}</p> 
+            </div>
+            <div class="od-obj-image">
+                <img src={oferta.imagen_objetivo} alt={`Objetivo de ${oferta.titulo}`} />
+            </div>
+        </section>
+
+        <div class="od-white-container-wrapper">
+            <section class="od-section-why">
+                <div class="od-why-container">
+                    <div class="od-why-visual">
+                        <img src={oferta.imagen_porque} alt="Por qué estudiar esta carrera" />
+                    </div>
+                    <div class="od-why-text">
+                        <h2>¿Porqué estudiarla?</h2>
+                        <div class="od-why-item">
+                            <h3>{oferta.razon_titulo_1}</h3>
+                            <p>{oferta.razon_desc_1}</p>
+                        </div>
+                        <div class="od-why-item">
+                            <h3>{oferta.razon_titulo_2}</h3>
+                            <p>{oferta.razon_desc_2}</p>
+                        </div>
+                        <div class="od-why-item">
+                            <h3>{oferta.razon_titulo_3}</h3>
+                            <p>{oferta.razon_desc_3}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="bento-container">
+                <div class="bento-item step-header has-bg-overlay" style={`background-image: url('/img/texture-background-programs-usbonline.webp')`}>
+                    <h2 class="bento-title-white">{oferta.bento_titulo_1}</h2>
+                </div>
+                <div class="bento-item step-content has-bg-overlay" style={`background-image: url('/img/texture-background-programs-usbonline.webp')`}>
+                    <p class="bento-text-gray">{oferta.bento_desc_1}</p>
+                </div>
+                <div class="bento-item wide-image">
+                    <img src={oferta.imagen_bento_1} alt="Colaboración académica" />
+                </div>
+                <div class="bento-item tall-image">
+                    <img src={oferta.imagen_bento_2} alt="Perfil profesional" />
+                </div>
+                <div class="bento-item become-header has-bg-overlay" style={`background-image: url('/img/texture-background-programs-usbonline.webp')`}>
+                    <h2 class="bento-title-white">{oferta.bento_titulo_2}</h2>
+                </div>
+                <div class="bento-item become-content has-bg-overlay" style={`background-image: url('/img/texture-background-programs-usbonline.webp')`}>
+                    <p class="bento-text-gray">{oferta.bento_desc_2}</p>
+                </div>
+            </section>
+
+            {oferta.hubspot_form_id && (
+              <section class="od-section-form">
+                <div class="od-form-container">
+                  <h2 class="od-ambitos-title" style="text-align: center;">Solicita Información</h2>
+                  
+                  <div 
+                    class="hs-form-frame" 
+                    data-region="na1" 
+                    data-form-id={oferta.hubspot_form_id} 
+                    data-portal-id={oferta.hubspot_portal_id}
+                  ></div>
+
+                  <script is:inline src="https://js.hsforms.net/forms/embed/8283333.js"></script>
+                </div>
+              </section>
+            )}
+
+            <section class="od-section-ambitos">
+                <div class="od-ambitos-container">
+                    <h2 class="od-ambitos-title">Campos de aplicación</h2>
+                    <div class="od-tags-wrapper">
+                        {(oferta.ambitos_aplicacion || []).map((ambito: string) => (
+                            <span class="od-ambito-tag">{ambito}</span>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section class="od-section-brochure">
+                <div class="od-brochure-banner">
+                    <img 
+                        src="../img/bg-banner-brochure.webp" 
+                        alt="Fondo decorativo programa educativo" 
+                        class="od-banner-bg"
+                        loading="lazy"
+                    />
+                    <div class="od-banner-overlay"></div>
+                    <div class="od-brochure-content">
+                        <h2 class="od-brochure-title">{oferta.categoriamin} en {oferta.titulo}</h2>
+                        <a 
+                            href={oferta.brochure ? oferta.brochure.trim() : "#"} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            class="od-brochure-btn"
+                        >
+                            Ver programa
+                        </a>
+                    </div>
+                    <div class="od-brochure-icon">
+                        <svg viewBox="0 0 24 24" fill="white">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+        </div> 
+
+        { (oferta.video_id || "prSqD3qGjdI") && (
+            <section class="od-video-integrated-section">
+                <div class="od-video-mini-container">
+                    <div class="od-video-text">
+                        <h2>Voces que enseñan</h2>
+                        <p>Historias reales de transformación online.</p>
+                    </div>
+                    <div class="od-video-player-box">
+                        <iframe
+                            src={`https://www.youtube.com/embed/${oferta.video_id || "prSqD3qGjdI"}`}
+                            title="Video testimonial"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+                </div>
+            </section>
+        )}
+    </main>
+
+    <Footer client:load />
+
+</MainLayout>

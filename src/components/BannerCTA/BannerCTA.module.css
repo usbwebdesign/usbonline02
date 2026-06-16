@@ -1,0 +1,104 @@
+.bannerWrapper {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  margin-top: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+.animationContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Mantiene el border-radius */
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  /* Estabilizadores de renderizado */
+  isolation: isolate; 
+  backface-visibility: hidden;
+}
+
+.videoBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  /* Forzamos a que el video use la GPU */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 30, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 60%
+  );
+  z-index: -1;
+}
+
+.bannerMain {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+  z-index: 1;
+}
+
+.content {
+  max-width: 650px;
+}
+
+.title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  color: #ececec;
+  line-height: 1.1;
+  margin-bottom: 2.5rem;
+  letter-spacing: -1.5px;
+}
+
+.ctaBtn {
+  background-color: #2b44ff;
+  color: #ffffff;
+  border: none;
+  padding: 18px 48px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 18px;
+  font-family: 'Sora', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(43, 68, 255, 0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-3px);
+  background-color: #1e32cc;
+}
+
+@media (max-width: 768px) {
+  .bannerWrapper {
+    height: 70dvh;
+    margin-top: 5rem;
+  }
+  .bannerMain {
+    text-align: center;
+  }
+  .content {
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,8 @@
+/* src/styles/variables.css */
+:root {
+  --primary-blue: #002D72;
+}
+
+body {
+  background-color: #f1f5f9;
+}

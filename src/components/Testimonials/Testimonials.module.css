@@ -1,0 +1,160 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 0; /* Ajustado para que el carrusel toque bordes */
+  text-align: center;
+}
+
+.title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 800;
+  margin-bottom: 4rem;
+  color: #1a1a1a;
+  padding: 0 5%;
+}
+
+.title span { color: #2b44ff; }
+
+/* Desktop Grid se oculta en móviles */
+.desktopGrid {
+    max-width: 1400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Mobile Carousel se oculta en desktop */
+.mobileCarousel {
+  display: none;
+}
+
+.videoCard {
+  position: relative;
+  width: 300px;
+  aspect-ratio: 9 / 16;
+  border-radius: 32px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #000;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  margin: 0 auto;
+}
+
+.featured {
+  width: 360px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+}
+
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.videoCard:hover .thumb {
+  transform: scale(1.08);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+  transition: background 0.3s ease;
+}
+
+.playButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.playIconWrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.playSvg {
+  width: 120px;
+  height: 120px;
+  margin-left: 5px;
+}
+
+.videoCard:hover .playIconWrapper {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 15px rgba(28, 28, 28, 0.8));
+}
+
+.studentName {
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* MODAL Y BOTONES (Sin cambios) */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.modalContent {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.modalContent iframe { width: 100%; height: 100%; }
+
+.closeBtn {
+  position: absolute;
+  top: -60px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+/* --- MEDIA QUERIES --- */
+@media (max-width: 1024px) {
+  .desktopGrid {
+    display: none;
+  }
+  .mobileCarousel {
+    display: block;
+    padding-bottom: 40px;
+  }
+  .videoCard, .featured {
+    width: 280px; /* Tamaño consistente en carrusel */
+  }
+}
+
+/* Personalización de puntitos de Swiper */
+:global(.swiper-pagination-bullet-active) {
+  background: #2b44ff !important;
+}
