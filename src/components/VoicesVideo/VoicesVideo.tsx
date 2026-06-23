@@ -40,11 +40,11 @@ export default function Voices({ videoId = "qp7IJeMBnn4" }: VoicesProps) {
         viewport={{ once: true }}
         onClick={() => setIsOpen(true)}
       >
-        <img 
-          src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`} 
-          alt="Testimonial USBOnline" 
-          className={s.thumbnail}
-        />
+      <img 
+        src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`} 
+        alt="Testimonial USBOnline" 
+        className={s.thumbnail}
+      />
         
         <div className={s.playOverlay}>
           <div className={s.playCircle}>
